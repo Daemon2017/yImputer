@@ -2,7 +2,6 @@ import datetime
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.experimental import enable_iterative_imputer  # noqa
 from sklearn.impute import IterativeImputer
 from sklearn.tree import DecisionTreeRegressor
@@ -30,21 +29,22 @@ combined_df = combined_df.drop(columns=non_STR_columns)
 combined_df = combined_df.dropna()
 
 for palindrome_column in ['CDY', 'DYF395S1', 'DYS385', 'DYS413', 'DYS459', 'YCAII']:
-    a_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[0].rename(palindrome_column + 'a'))
-    b_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-1].rename(palindrome_column + 'b'))
+    a_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[0].rename(palindrome_column + 'a')).fillna(0)
+    b_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-1].rename(palindrome_column + 'b')).fillna(0)
     combined_df = pd.concat([combined_df, a_df, b_df], axis=1)
     del combined_df[palindrome_column]
 
 for palindrome_column in ['DYS464']:
-    a_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[0].rename(palindrome_column + 'a'))
-    b_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[1].rename(palindrome_column + 'b'))
-    c_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-2].rename(palindrome_column + 'c'))
-    d_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-1].rename(palindrome_column + 'd'))
+    a_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[0].rename(palindrome_column + 'a')).fillna(0)
+    b_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[1].rename(palindrome_column + 'b')).fillna(0)
+    c_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-2].rename(palindrome_column + 'c')).fillna(0)
+    d_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-1].rename(palindrome_column + 'd')).fillna(0)
     combined_df = pd.concat([combined_df, a_df, b_df, c_df, d_df], axis=1)
     del combined_df[palindrome_column]
 
 # for palindrome_column in ['DYS19', 'DYS425']:
-#     splited = combined_df[palindrome_column].str.split('-')
+#     splited_df = combined_df[palindrome_column].apply(
+#         lambda x: round(sum(map(float, x.split('-'))) / len(x.split('-'))))
 
 for column in combined_df:
     if column not in utils_columns:
@@ -58,7 +58,7 @@ kit_number_df = pd.DataFrame(data=combined_df['KIT NUMBER'])
 
 no_kit_number_df = combined_df.drop(['KIT NUMBER'], axis=1)
 no_kit_number_df = no_kit_number_df.astype(float)
-no_kit_number_df = no_kit_number_df.astype(int, errors='ignore')
+no_kit_number_df = no_kit_number_df.astype(int)
 no_kit_number_df = no_kit_number_df[strs_order]
 
 del combined_df
@@ -134,7 +134,7 @@ iterative_imputer.fit(no_kit_number_df)
 
 imputed = iterative_imputer.transform(sparse_no_kit_number_df)
 imputed_no_kit_number_df = pd.DataFrame(imputed, columns=sparse_no_kit_number_df.columns)
-imputed_no_kit_number_df = imputed_no_kit_number_df.astype(int, errors='ignore')
+imputed_no_kit_number_df = imputed_no_kit_number_df.astype(int)
 
 mean_score = no_kit_number_df.eq(imputed_no_kit_number_df.values).mean().mean()
 print('Mean: ' + str(mean_score))
