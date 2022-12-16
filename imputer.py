@@ -29,16 +29,18 @@ combined_df = combined_df.drop(columns=non_STR_columns)
 combined_df = combined_df.dropna()
 
 for palindrome_column in ['CDY', 'DYF395S1', 'DYS385', 'DYS413', 'DYS459', 'YCAII']:
-    a_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[0].rename(palindrome_column + 'a')).fillna(0)
-    b_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-1].rename(palindrome_column + 'b')).fillna(0)
+    str_splited = combined_df[palindrome_column].str.split('-')
+    a_df = pd.DataFrame(str_splited.str[0].rename(palindrome_column + 'a')).fillna(0)
+    b_df = pd.DataFrame(str_splited.str[-1].rename(palindrome_column + 'b')).fillna(0)
     combined_df = pd.concat([combined_df, a_df, b_df], axis=1)
     del combined_df[palindrome_column]
 
 for palindrome_column in ['DYS464']:
-    a_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[0].rename(palindrome_column + 'a')).fillna(0)
-    b_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[1].rename(palindrome_column + 'b')).fillna(0)
-    c_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-2].rename(palindrome_column + 'c')).fillna(0)
-    d_df = pd.DataFrame(combined_df[palindrome_column].str.split('-').str[-1].rename(palindrome_column + 'd')).fillna(0)
+    str_splited = combined_df[palindrome_column].str.split('-')
+    a_df = pd.DataFrame(str_splited.str[0].rename(palindrome_column + 'a')).fillna(0)
+    b_df = pd.DataFrame(str_splited.str[1].rename(palindrome_column + 'b')).fillna(0)
+    c_df = pd.DataFrame(str_splited.str[-2].rename(palindrome_column + 'c')).fillna(0)
+    d_df = pd.DataFrame(str_splited.str[-1].rename(palindrome_column + 'd')).fillna(0)
     combined_df = pd.concat([combined_df, a_df, b_df, c_df, d_df], axis=1)
     del combined_df[palindrome_column]
 
