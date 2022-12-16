@@ -27,26 +27,26 @@ combined_df = pd.read_csv('combined_snp_str_map.csv', dtype=str)
 combined_df.columns = map(str.upper, combined_df.columns)
 combined_df = combined_df.drop(columns=non_STR_columns)
 combined_df = combined_df.dropna()
+combined_df = combined_df.replace(r'\.0$', '', regex=True)
+combined_df = combined_df.loc[~(combined_df == '0').any(1)]
+combined_df = combined_df.loc[~(combined_df == '0-0').any(1)]
+combined_df = combined_df.loc[~(combined_df == '0-0-0-0').any(1)]
 
 for palindrome_column in ['CDY', 'DYF395S1', 'DYS385', 'DYS413', 'DYS459', 'YCAII']:
     str_splited = combined_df[palindrome_column].str.split('-')
-    a_df = pd.DataFrame(str_splited.str[0].rename(palindrome_column + 'a')).fillna(0)
-    b_df = pd.DataFrame(str_splited.str[-1].rename(palindrome_column + 'b')).fillna(0)
+    a_df = pd.DataFrame(str_splited.str[0].rename(palindrome_column + 'a'))
+    b_df = pd.DataFrame(str_splited.str[-1].rename(palindrome_column + 'b'))
     combined_df = pd.concat([combined_df, a_df, b_df], axis=1)
     del combined_df[palindrome_column]
 
 for palindrome_column in ['DYS464']:
     str_splited = combined_df[palindrome_column].str.split('-')
-    a_df = pd.DataFrame(str_splited.str[0].rename(palindrome_column + 'a')).fillna(0)
-    b_df = pd.DataFrame(str_splited.str[1].rename(palindrome_column + 'b')).fillna(0)
-    c_df = pd.DataFrame(str_splited.str[-2].rename(palindrome_column + 'c')).fillna(0)
-    d_df = pd.DataFrame(str_splited.str[-1].rename(palindrome_column + 'd')).fillna(0)
+    a_df = pd.DataFrame(str_splited.str[0].rename(palindrome_column + 'a'))
+    b_df = pd.DataFrame(str_splited.str[1].rename(palindrome_column + 'b'))
+    c_df = pd.DataFrame(str_splited.str[-2].rename(palindrome_column + 'c'))
+    d_df = pd.DataFrame(str_splited.str[-1].rename(palindrome_column + 'd'))
     combined_df = pd.concat([combined_df, a_df, b_df, c_df, d_df], axis=1)
     del combined_df[palindrome_column]
-
-# for palindrome_column in ['DYS19', 'DYS425']:
-#     splited_df = combined_df[palindrome_column].apply(
-#         lambda x: round(sum(map(float, x.split('-'))) / len(x.split('-'))))
 
 for column in combined_df:
     if column not in utils_columns:
@@ -122,7 +122,7 @@ iterative_imputer = IterativeImputer(
     #     random_state=0,
     #     verbose=2,
     #     max_samples=None),
-    estimator=DecisionTreeRegressor(  # Mean: 0.9591956309621924
+    estimator=DecisionTreeRegressor(  # Mean: 0.9606124449056386
         criterion="squared_error",
         max_depth=None,
         min_samples_split=2,
