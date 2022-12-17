@@ -7,3 +7,4 @@ ftdna_tree.txt
 ftdna_tree.json
 *.log
 *.json
+*.pkl
