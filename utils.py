@@ -52,18 +52,12 @@ def get_prepared_df(df):
             except KeyError as KE:
                 print(KE)
 
+    df = df.drop(['KIT NUMBER'], axis=1)
+    df = df.astype(float)
+    df = df.astype(int)
+    df = df[strs_order]
+
     return df
-
-
-def get_splitted_df(df):
-    kit_number_df = pd.DataFrame(data=df['KIT NUMBER'])
-
-    no_kit_number_df = df.drop(['KIT NUMBER'], axis=1)
-    no_kit_number_df = no_kit_number_df.astype(float)
-    no_kit_number_df = no_kit_number_df.astype(int)
-    no_kit_number_df = no_kit_number_df[strs_order]
-
-    return kit_number_df, no_kit_number_df
 
 
 def get_sparse_df(df):
@@ -147,9 +141,9 @@ def get_fitted_imputer(df):
 
 def get_imputation_score(imputer, df, sparse_df):
     imputed = imputer.transform(sparse_df)
-    imputed_no_kit_number_df = pd.DataFrame(imputed, columns=sparse_df.columns)
-    imputed_no_kit_number_df = imputed_no_kit_number_df.astype(int)
+    imputed_df = pd.DataFrame(imputed, columns=sparse_df.columns)
+    imputed_df = imputed_df.astype(int)
 
-    mean_score = df.eq(imputed_no_kit_number_df.values).mean().mean()
-    # no_kit_number_df.eq(imputed_no_kit_number_df.values).mean().sort_values(ascending=False).index.values.tolist()
+    mean_score = df.eq(imputed_df.values).mean().mean()
+    # df.eq(imputed_df.values).mean().sort_values(ascending=False).index.values.tolist()
     print('Mean score: ' + str(mean_score))
