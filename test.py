@@ -10,6 +10,7 @@ X_train, X_test = train_test_split(combined_df, test_size=0.50, random_state=0, 
 
 iterative_imputer = utils.get_fitted_imputer(X_train)
 
-for subset in [X_train, X_test]:
-    sparse_subset = utils.get_sparse_df(subset)
-    utils.get_imputation_score(iterative_imputer, subset, sparse_subset)
+for df in [X_train, X_test]:
+    sparse_subset = utils.get_sparse_df(df)
+    imputed_df = utils.get_imputed_df(iterative_imputer, sparse_subset)
+    utils.get_imputation_score(df, imputed_df)

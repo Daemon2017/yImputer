@@ -10,4 +10,5 @@ iterative_imputer = utils.get_fitted_imputer(combined_df)
 joblib.dump(iterative_imputer, 'iterative_imputer.pkl')
 
 sparse_combined_df = utils.get_sparse_df(combined_df)
-utils.get_imputation_score(iterative_imputer, combined_df, sparse_combined_df)
+imputed_df = utils.get_imputed_df(iterative_imputer, sparse_combined_df)
+utils.get_imputation_score(combined_df, imputed_df)

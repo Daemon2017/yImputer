@@ -31,15 +31,5 @@ def predict_csv():
     return Response(imputed_df.to_csv(sep=sep, index=False), mimetype='text/csv')
 
 
-@app.route('/predict_text', methods=['POST'])
-def predict_text():
-    strs = request.data.decode("utf-8").split()
-    sparse_df = pd.DataFrame([strs], columns=utils.strs_in)
-    sparse_df = utils.get_prepared_df(sparse_df)
-    imputed_df = utils.get_imputed_df(iterative_imputer, sparse_df)
-    imputed_df = imputed_df[utils.strs_out]
-    return Response(np.array2string(imputed_df.values[0], separator='	').replace('\n', ''), mimetype='text/plain')
-
-
 if __name__ == '__main__':
     app.run()
