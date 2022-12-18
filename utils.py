@@ -34,7 +34,7 @@ ftdna_strs_order = [
 
 def get_prepared_df(df):
     df.columns = map(str.upper, df.columns)
-    df = df.drop(columns=['SHORT HAND', 'LNG', 'LAT', 'NGS'], errors='ignore')
+    df = df.drop(columns=['KIT NUMBER', 'SHORT HAND', 'LNG', 'LAT', 'NGS'], errors='ignore')
     df = df.dropna()
     df = df.replace(r'\.0$', '', regex=True)
     df = df.loc[~(df == '0').any(1)]
@@ -57,14 +57,7 @@ def get_prepared_df(df):
         df = pd.concat([df, a_df, b_df, c_df, d_df], axis=1)
         del df[palindrome_column]
 
-    for column in df:
-        if column not in ['KIT NUMBER']:
-            try:
-                df = df.drop(df[df[column].astype(str).str.contains('-', na=False)].index)
-            except KeyError as KE:
-                print(KE)
-
-    df = df.drop(['KIT NUMBER'], axis=1, errors='ignore')
+    df = df[~df.stack().astype(str).str.contains('-', na=False).any(level=0)]
     df = df.replace(r'^\s*$', np.nan, regex=True)
     df = df.astype(float, errors='ignore')
     df = df.astype(int, errors='ignore')

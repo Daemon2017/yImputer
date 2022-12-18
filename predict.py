@@ -12,8 +12,7 @@ iterative_imputer = joblib.load('iterative_imputer.pkl')
 
 @app.route('/predict_json', methods=['POST'])
 def predict_json():
-    str_dict = request.json
-    sparse_df = pd.json_normalize(str_dict)
+    sparse_df = pd.json_normalize(request.json)
     sparse_str_order = sparse_df.columns
     sparse_df = sparse_df[utils.strs_order]
     sparse_df = sparse_df.replace(r'^\s*$', np.nan, regex=True)
