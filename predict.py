@@ -28,6 +28,7 @@ def predict_csv():
     sparse_df = pd.read_csv(request.files['file'], sep=sep)
     sparse_df = utils.get_prepared_df(sparse_df)
     imputed_df = utils.get_imputed_df(iterative_imputer, sparse_df)
+    imputed_df = imputed_df[utils.ftdna_strs_order]
     return Response(imputed_df.to_csv(sep=sep, index=False), mimetype='text/csv')
 
 
