@@ -2,6 +2,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from flask import Flask, request, Response
+from waitress import serve
 
 import utils
 
@@ -32,6 +33,4 @@ def predict_csv():
 
 
 if __name__ == '__main__':
-    from waitress import serve
-
     serve(app, host="0.0.0.0", port=8080)

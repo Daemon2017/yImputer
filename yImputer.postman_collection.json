@@ -20,15 +20,15 @@
           }
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/predict_json",
+          "raw": "http://185.86.145.42:8080/predict_json",
           "protocol": "http",
           "host": [
-            "127",
-            "0",
-            "0",
-            "1"
+            "185",
+            "86",
+            "145",
+            "42"
           ],
-          "port": "5000",
+          "port": "8080",
           "path": [
             "predict_json"
           ]
@@ -52,15 +52,15 @@
           ]
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/predict_csv?sep=;",
+          "raw": "http://185.86.145.42:8080/predict_csv?sep=;",
           "protocol": "http",
           "host": [
-            "127",
-            "0",
-            "0",
-            "1"
+            "185",
+            "86",
+            "145",
+            "42"
           ],
-          "port": "5000",
+          "port": "8080",
           "path": [
             "predict_csv"
           ],
