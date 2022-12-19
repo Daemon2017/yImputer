@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.experimental import enable_iterative_imputer  # noqa
 from sklearn.impute import IterativeImputer
+from sklearn.metrics import f1_score
 from sklearn.tree import DecisionTreeRegressor
 
 train_strs_order = [
@@ -47,6 +48,7 @@ full_ftdna_strs_order = [
 def get_prepared_df(df, train):
     df.columns = map(str.upper, df.columns)
     if train:
+        df = df.drop_duplicates(subset=['KIT NUMBER'], keep='last')
         df = df.drop(columns=['KIT NUMBER', 'SHORT HAND', 'LNG', 'LAT', 'NGS'], errors='ignore')
         df = df.dropna()
     df = df.replace(r'\.0$', '', regex=True)
@@ -71,7 +73,7 @@ def get_prepared_df(df, train):
         df = pd.concat([df, a_df, b_df, c_df, d_df], axis=1)
         del df[palindrome_column]
 
-    df = df[~df.stack().astype(str).str.contains('-', na=False).any(level=0)]
+    df = df[~df.stack().astype(str).str.contains('-', na=False).groupby(level=0).any()]
     df = df.replace(r'^\s*$', np.nan, regex=True)
     df = df.astype(float, errors='ignore')
     df = df.astype(int, errors='ignore')
@@ -114,5 +116,11 @@ def get_imputed_df(imputer, sparse_df):
 
 
 def get_imputation_score(df, imputed_df):
-    mean_score = df.eq(imputed_df.values).mean().mean()
-    print('Mean score: ' + str(mean_score))
+    micro_sum = 0
+    for column in df:
+        micro_sum = micro_sum + f1_score(df[column], imputed_df[column], average='micro')
+    print('Mean Micro score: ' + str(micro_sum / len(df.columns)))
+    macro_sum = 0
+    for column in df:
+        macro_sum = macro_sum + f1_score(df[column], imputed_df[column], average='macro')
+    print('Mean Macro score: ' + str(macro_sum / len(df.columns)))
