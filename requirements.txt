@@ -1,6 +1,6 @@
-numpy~=1.23.0
-pandas~=1.4.3
-scikit-learn~=1.0.1
-joblib~=1.1.0
-Flask~=2.0.2
+numpy~=1.23.5
+pandas~=1.4.4
+scikit-learn~=1.0.2
+joblib~=1.1.1
+Flask~=2.0.3
 waitress~=2.1.2
