@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 import utils
 
 combined_df = pd.read_csv('combined_snp_str_map.csv', dtype=str)
-combined_df = utils.get_prepared_df(combined_df)
+combined_df = utils.get_prepared_df(combined_df, True)
 
 X_train, X_test = train_test_split(combined_df, test_size=0.50, random_state=0, shuffle=True)
 

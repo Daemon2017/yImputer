@@ -6,7 +6,7 @@ from sklearn.experimental import enable_iterative_imputer  # noqa
 from sklearn.impute import IterativeImputer
 from sklearn.tree import DecisionTreeRegressor
 
-strs_order = [
+train_strs_order = [
     'DYS472', 'DYS436', 'DYS575', 'DYS435', 'DYS590', 'DYS494', 'DYS632', 'DYS490', 'DYS593', 'DYS425', 'DYS641',
     'DYS454', 'DYS434', 'DYS450', 'DYS455', 'DYF395S1b', 'DYS726', 'DYS578', 'DYS426', 'YCAIIa', 'DYS531', 'DYS438',
     'DYS459a', 'DYS594', 'DYS640', 'DYF395S1a', 'DYS636', 'DYS568', 'DYS392', 'Y-GGAAT-1B07', 'DYS565', 'DYS459b',
@@ -19,6 +19,18 @@ strs_order = [
     'DYS456', 'DYS439', 'DYS481', 'DYS650', 'DYS458', 'DYS534', 'DYS570', 'DYS714', 'DYS576', 'DYS712', 'DYS449',
     'CDYa', 'CDYb', 'DYS710']
 ftdna_strs_order = [
+    'DYS393', 'DYS390', 'DYS19', 'DYS391', 'DYS385', 'DYS426', 'DYS388', 'DYS439', 'DYS389I', 'DYS392',
+    'DYS389II', 'DYS458', 'DYS459', 'DYS455', 'DYS454', 'DYS447', 'DYS437', 'DYS448', 'DYS449', 'DYS464',
+    'DYS460', 'Y-GATA-H4', 'YCAII', 'DYS456', 'DYS607', 'DYS576', 'DYS570',
+    'CDY', 'DYS442', 'DYS438', 'DYS531', 'DYS578', 'DYF395S1', 'DYS590', 'DYS537', 'DYS641',
+    'DYS472', 'DYF406S1', 'DYS511', 'DYS425', 'DYS413', 'DYS557', 'DYS594', 'DYS436', 'DYS490', 'DYS534',
+    'DYS450', 'DYS444', 'DYS481', 'DYS520', 'DYS446', 'DYS617', 'DYS568', 'DYS487', 'DYS572', 'DYS640', 'DYS492',
+    'DYS565', 'DYS710', 'DYS485', 'DYS632', 'DYS495', 'DYS540', 'DYS714', 'DYS716', 'DYS717', 'DYS505', 'DYS556',
+    'DYS549', 'DYS589', 'DYS522', 'DYS494', 'DYS533', 'DYS636', 'DYS575', 'DYS638', 'DYS462', 'DYS452', 'DYS445',
+    'Y-GATA-A10', 'DYS463', 'DYS441', 'Y-GGAAT-1B07', 'DYS525', 'DYS712', 'DYS593', 'DYS650', 'DYS532', 'DYS715',
+    'DYS504', 'DYS513', 'DYS561', 'DYS552', 'DYS726', 'DYS635', 'DYS587', 'DYS643', 'DYS497', 'DYS510', 'DYS434',
+    'DYS461', 'DYS435']
+full_ftdna_strs_order = [
     'DYS393', 'DYS390', 'DYS19', 'DYS391', 'DYS385a', 'DYS385b', 'DYS426', 'DYS388', 'DYS439', 'DYS389I', 'DYS392',
     'DYS389II', 'DYS458', 'DYS459a', 'DYS459b', 'DYS455', 'DYS454', 'DYS447', 'DYS437', 'DYS448', 'DYS449', 'DYS464a',
     'DYS464b', 'DYS464c', 'DYS464d', 'DYS460', 'Y-GATA-H4', 'YCAIIa', 'YCAIIb', 'DYS456', 'DYS607', 'DYS576', 'DYS570',
@@ -32,14 +44,16 @@ ftdna_strs_order = [
     'DYS461', 'DYS435']
 
 
-def get_prepared_df(df):
+def get_prepared_df(df, train):
     df.columns = map(str.upper, df.columns)
-    df = df.drop(columns=['KIT NUMBER', 'SHORT HAND', 'LNG', 'LAT', 'NGS'], errors='ignore')
-    df = df.dropna()
+    if train:
+        df = df.drop(columns=['KIT NUMBER', 'SHORT HAND', 'LNG', 'LAT', 'NGS'], errors='ignore')
+        df = df.dropna()
     df = df.replace(r'\.0$', '', regex=True)
-    df = df.loc[~(df == '0').any(1)]
-    df = df.loc[~(df == '0-0').any(1)]
-    df = df.loc[~(df == '0-0-0-0').any(1)]
+    if train:
+        df = df.loc[~(df == '0').any(1)]
+        df = df.loc[~(df == '0-0').any(1)]
+        df = df.loc[~(df == '0-0-0-0').any(1)]
 
     for palindrome_column in ['CDY', 'DYF395S1', 'DYS385', 'DYS413', 'DYS459', 'YCAII']:
         str_splitted = df[palindrome_column].astype(str).str.split('-')
@@ -61,7 +75,7 @@ def get_prepared_df(df):
     df = df.replace(r'^\s*$', np.nan, regex=True)
     df = df.astype(float, errors='ignore')
     df = df.astype(int, errors='ignore')
-    df = df[strs_order]
+    df = df[train_strs_order]
 
     return df
 
