@@ -1,3 +1,6 @@
+import os
+import pathlib
+
 import joblib
 import numpy as np
 import pandas as pd
@@ -8,7 +11,7 @@ import utils
 
 app = Flask(__name__)
 
-iterative_imputer = joblib.load('iterative_imputer.pkl')
+iterative_imputer = joblib.load(os.path.join(pathlib.Path().resolve(), 'iterative_imputer.pkl'))
 
 
 @app.route('/predict_json', methods=['POST'])
