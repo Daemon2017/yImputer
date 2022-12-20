@@ -46,7 +46,6 @@ full_ftdna_strs_order = [
 
 
 def get_prepared_df(df, train):
-    df.columns = map(str.upper, df.columns)
     if train:
         df = df[df.columns.intersection(ftdna_strs_order)]
         df = df.dropna()
