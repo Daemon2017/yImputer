@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.experimental import enable_iterative_imputer  # noqa
 from sklearn.impute import IterativeImputer
-from sklearn.metrics import f1_score
+from sklearn.metrics import r2_score
 from sklearn.tree import DecisionTreeRegressor
 
 train_strs_order = [
@@ -82,9 +82,10 @@ def get_prepared_df(df, train):
     return df
 
 
-def get_sparse_df(df):
+def get_sparse_df(df, sparse_percent):
+    print('Sparse %: ' + str(sparse_percent * 100))
     np.random.seed(0)
-    sparse_df = df.mask(np.random.random(df.shape) < .25)
+    sparse_df = df.mask(np.random.random(df.shape) < sparse_percent)
     return sparse_df
 
 
@@ -116,11 +117,4 @@ def get_imputed_df(imputer, sparse_df):
 
 
 def get_imputation_score(df, imputed_df):
-    micro_sum = 0
-    for column in df:
-        micro_sum = micro_sum + f1_score(df[column], imputed_df[column], average='micro')
-    print('Mean Micro score: ' + str(micro_sum / len(df.columns)))
-    macro_sum = 0
-    for column in df:
-        macro_sum = macro_sum + f1_score(df[column], imputed_df[column], average='macro')
-    print('Mean Macro score: ' + str(macro_sum / len(df.columns)))
+    print('R^2: ' + str(r2_score(df, imputed_df)))
