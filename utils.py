@@ -45,33 +45,34 @@ full_ftdna_strs_order = [
     'DYS461', 'DYS435']
 
 
-def get_prepared_df(df, train):
+def get_prepared_df(df, train, split):
     if train:
         df = df[df.columns.intersection(ftdna_strs_order)]
         df = df.dropna()
-    df = df.replace(r'\.0$', '', regex=True)
-    if train:
+        df = df.replace(r'\.0$', '', regex=True)
         df = df.loc[~(df == '0').any(1)]
         df = df.loc[~(df == '0-0').any(1)]
         df = df.loc[~(df == '0-0-0-0').any(1)]
 
-    for palindrome_column in ['CDY', 'DYF395S1', 'DYS385', 'DYS413', 'DYS459', 'YCAII']:
-        str_splitted = df[palindrome_column].astype(str).str.split('-')
-        a_df = pd.DataFrame(str_splitted.str[0].rename(palindrome_column + 'a'))
-        b_df = pd.DataFrame(str_splitted.str[-1].rename(palindrome_column + 'b'))
-        df = pd.concat([df, a_df, b_df], axis=1)
-        del df[palindrome_column]
+    if split:
+        for palindrome_column in ['CDY', 'DYF395S1', 'DYS385', 'DYS413', 'DYS459', 'YCAII']:
+            str_splitted = df[palindrome_column].astype(str).str.split('-')
+            a_df = pd.DataFrame(str_splitted.str[0].rename(palindrome_column + 'a'))
+            b_df = pd.DataFrame(str_splitted.str[-1].rename(palindrome_column + 'b'))
+            df = pd.concat([df, a_df, b_df], axis=1)
+            del df[palindrome_column]
 
-    for palindrome_column in ['DYS464']:
-        str_splitted = df[palindrome_column].astype(str).str.split('-')
-        a_df = pd.DataFrame(str_splitted.str[0].rename(palindrome_column + 'a'))
-        b_df = pd.DataFrame(str_splitted.str[1].rename(palindrome_column + 'b'))
-        c_df = pd.DataFrame(str_splitted.str[-2].rename(palindrome_column + 'c'))
-        d_df = pd.DataFrame(str_splitted.str[-1].rename(palindrome_column + 'd'))
-        df = pd.concat([df, a_df, b_df, c_df, d_df], axis=1)
-        del df[palindrome_column]
+        for palindrome_column in ['DYS464']:
+            str_splitted = df[palindrome_column].astype(str).str.split('-')
+            a_df = pd.DataFrame(str_splitted.str[0].rename(palindrome_column + 'a'))
+            b_df = pd.DataFrame(str_splitted.str[1].rename(palindrome_column + 'b'))
+            c_df = pd.DataFrame(str_splitted.str[-2].rename(palindrome_column + 'c'))
+            d_df = pd.DataFrame(str_splitted.str[-1].rename(palindrome_column + 'd'))
+            df = pd.concat([df, a_df, b_df, c_df, d_df], axis=1)
+            del df[palindrome_column]
 
-    df = df[~df.stack().astype(str).str.contains('-', na=False).groupby(level=0).any()]
+    if train:
+        df = df[~df.stack().astype(str).str.contains('-', na=False).groupby(level=0).any()]
     if ~train:
         df = df.replace(r'^\s*$', np.nan, regex=True)
     df = df.astype(float, errors='ignore')
