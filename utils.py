@@ -48,8 +48,7 @@ full_ftdna_strs_order = [
 def get_prepared_df(df, train):
     df.columns = map(str.upper, df.columns)
     if train:
-        df = df.drop_duplicates(subset=['KIT NUMBER'], keep='last')
-        df = df.drop(columns=['KIT NUMBER', 'SHORT HAND', 'LNG', 'LAT', 'NGS'], errors='ignore')
+        df = df[df.columns.intersection(ftdna_strs_order)]
         df = df.dropna()
     df = df.replace(r'\.0$', '', regex=True)
     if train:
