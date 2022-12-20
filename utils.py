@@ -74,7 +74,8 @@ def get_prepared_df(df, train):
         del df[palindrome_column]
 
     df = df[~df.stack().astype(str).str.contains('-', na=False).groupby(level=0).any()]
-    df = df.replace(r'^\s*$', np.nan, regex=True)
+    if ~train:
+        df = df.replace(r'^\s*$', np.nan, regex=True)
     df = df.astype(float, errors='ignore')
     df = df.astype(int, errors='ignore')
     df = df[train_strs_order]
