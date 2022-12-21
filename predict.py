@@ -35,6 +35,22 @@ def predict_csv():
     return Response(imputed_df.to_csv(sep=sep, index=False), mimetype='text/csv')
 
 
+@app.route('/predict_ftdna', methods=['POST'])
+def predict_ftdna():
+    sep = request.args.get('sep')
+    sparse_df = pd.concat([pd.DataFrame(columns=utils.ftdna_strs_order),
+                           pd.read_csv(request.files['file'], sep=sep)])
+    sparse_df = sparse_df[utils.ftdna_strs_order]
+    sparse_df = utils.get_prepared_predict_df(sparse_df, True)
+    imputed_df = utils.get_imputed_df(iterative_imputer, sparse_df)
+    for palindromes in [['DYS385a', 'DYS385b'], ['DYS459a', 'DYS459b'], ['DYS464a', 'DYS464b', 'DYS464c', 'DYS464d'],
+                        ['CDYa', 'CDYb'], ['DYF395S1a', 'DYF395S1b'], ['DYS413a', 'DYS413b'], ['YCAIIa', 'YCAIIb']]:
+        imputed_df[palindromes[0][:-1]] = imputed_df[palindromes].astype(str).apply("-".join, axis=1)
+        imputed_df = imputed_df.drop(columns=palindromes)
+    imputed_df = imputed_df[utils.ftdna_strs_order]
+    return Response(imputed_df.to_csv(sep=sep, index=False), mimetype='text/csv')
+
+
 @app.route('/predict_yfull', methods=['POST'])
 def predict_yfull():
     sep = request.args.get('sep')

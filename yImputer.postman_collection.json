@@ -47,12 +47,12 @@
             {
               "key": "file",
               "type": "file",
-              "src": "/C:/Users/Daemon2017/Downloads/SI10631_YDNA_DYS_Results_20221218 - SI10631_YDNA_DYS_Results_20221218.csv"
+              "src": []
             }
           ]
         },
         "url": {
-          "raw": "http://185.86.145.42:8080/predict_csv?sep=;",
+          "raw": "http://185.86.145.42:8080/predict_csv?sep=,",
           "protocol": "http",
           "host": [
             "185",
@@ -67,7 +67,83 @@
           "query": [
             {
               "key": "sep",
+              "value": ","
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "YFull Endpoint",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://185.86.145.42:8080/predict_yfull?sep=;",
+          "protocol": "http",
+          "host": [
+            "185",
+            "86",
+            "145",
+            "42"
+          ],
+          "port": "8080",
+          "path": [
+            "predict_yfull"
+          ],
+          "query": [
+            {
+              "key": "sep",
               "value": ";"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FTDNA Endpoint",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://185.86.145.42:8080/predict_ftdna?sep=,",
+          "protocol": "http",
+          "host": [
+            "185",
+            "86",
+            "145",
+            "42"
+          ],
+          "port": "8080",
+          "path": [
+            "predict_ftdna"
+          ],
+          "query": [
+            {
+              "key": "sep",
+              "value": ","
             }
           ]
         }
