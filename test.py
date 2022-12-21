@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 import utils
 
 combined_df = pd.read_csv('combined_snp_str_map.csv', dtype=str)
-combined_df = utils.get_prepared_df(combined_df, True, True)
+combined_df = utils.get_prepared_train_df(combined_df)
 
 for test_size in [0.25, 0.33, 0.50, 0.66, 0.75]:
     print('Test part %: ' + str(test_size * 100))
