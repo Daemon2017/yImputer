@@ -9,6 +9,8 @@ from waitress import serve
 
 import utils
 
+TEXT_CSV = 'text/csv'
+
 app = Flask(__name__)
 
 iterative_imputer = joblib.load(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), 'iterative_imputer.pkl'))
@@ -48,7 +50,7 @@ def predict_ftdna():
         imputed_df[palindromes[0][:-1]] = imputed_df[palindromes].astype(str).apply("-".join, axis=1)
         imputed_df = imputed_df.drop(columns=palindromes)
     imputed_df = imputed_df[utils.ftdna_strs_order]
-    return Response(imputed_df.to_csv(sep=sep, index=False), mimetype='text/csv')
+    return Response(imputed_df.to_csv(sep=sep, index=False), mimetype=TEXT_CSV)
 
 
 @app.route('/predict_yfull', methods=['POST'])
