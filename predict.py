@@ -34,7 +34,7 @@ def predict_csv():
     sparse_df = utils.get_prepared_predict_df(sparse_df, False)
     imputed_df = utils.get_imputed_df(iterative_imputer, sparse_df)
     imputed_df = imputed_df[utils.full_ftdna_strs_order]
-    return Response(imputed_df.to_csv(sep=sep, index=False), mimetype='text/csv')
+    return Response(imputed_df.to_csv(sep=sep, index=False), mimetype=TEXT_CSV)
 
 
 @app.route('/predict_ftdna', methods=['POST'])
@@ -69,7 +69,7 @@ def predict_yfull():
     ftdna_to_yfull_dict = dict((v, k) for k, v in utils.yfull_to_ftdna_dict.items())
     imputed_df = imputed_df.rename(columns=ftdna_to_yfull_dict)
     imputed_df = imputed_df[utils.full_yfull_strs_order]
-    return Response(imputed_df.to_csv(sep=sep, index=False), mimetype='text/csv')
+    return Response(imputed_df.to_csv(sep=sep, index=False), mimetype=TEXT_CSV)
 
 
 if __name__ == '__main__':
