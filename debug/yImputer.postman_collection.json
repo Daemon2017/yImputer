@@ -20,13 +20,10 @@
           }
         },
         "url": {
-          "raw": "http://185.86.145.42:8080/predict_json",
+          "raw": "http://localhost:8080/predict_json",
           "protocol": "http",
           "host": [
-            "185",
-            "86",
-            "145",
-            "42"
+            "localhost"
           ],
           "port": "8080",
           "path": [
@@ -52,13 +49,10 @@
           ]
         },
         "url": {
-          "raw": "http://185.86.145.42:8080/predict_csv?sep=,",
+          "raw": "http://localhost:8080/predict_csv?sep=,",
           "protocol": "http",
           "host": [
-            "185",
-            "86",
-            "145",
-            "42"
+            "localhost"
           ],
           "port": "8080",
           "path": [
@@ -90,13 +84,10 @@
           ]
         },
         "url": {
-          "raw": "http://185.86.145.42:8080/predict_yfull?sep=;",
+          "raw": "http://localhost:8080/predict_yfull?sep=;",
           "protocol": "http",
           "host": [
-            "185",
-            "86",
-            "145",
-            "42"
+            "localhost"
           ],
           "port": "8080",
           "path": [
@@ -128,13 +119,10 @@
           ]
         },
         "url": {
-          "raw": "http://185.86.145.42:8080/predict_ftdna?sep=,",
+          "raw": "http://localhost:8080/predict_ftdna?sep=,",
           "protocol": "http",
           "host": [
-            "185",
-            "86",
-            "145",
-            "42"
+            "localhost"
           ],
           "port": "8080",
           "path": [

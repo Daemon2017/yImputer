@@ -2,8 +2,6 @@
 .ipynb_checkpoints/
 .idea/
 *.csv
-*.html
-ftdna_tree.txt
-ftdna_tree.json
 *.log
 *.pkl
+*.dot
