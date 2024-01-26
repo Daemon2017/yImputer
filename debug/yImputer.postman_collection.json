@@ -1,90 +1,21 @@
 {
   "info": {
-    "_postman_id": "310c3dcd-8abb-4179-a34c-f1966e025623",
+    "_postman_id": "327da625-5ec1-42e4-b8a9-2db352eda06c",
     "name": "yImputer",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
-    {
-      "name": "JSON Endpoint",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "[\r\n    {\r\n        \"DYS393\": 13,\r\n        \"DYS390\": 23,\r\n        \"DYS19\": 14,\r\n        \"DYS391\": 10,\r\n        \"DYS385a\": 14,\r\n        \"DYS385b\": 14,\r\n        \"DYS426\": 11,\r\n        \"DYS388\": 14,\r\n        \"DYS439\": 11,\r\n        \"DYS389I\": 12,\r\n        \"DYS392\": 11,\r\n        \"DYS389II\": 28,\r\n        \"DYS458\": 15,\r\n        \"DYS459a\": 7,\r\n        \"DYS459b\": 9,\r\n        \"DYS455\": 8,\r\n        \"DYS454\": 11,\r\n        \"DYS447\": 23,\r\n        \"DYS437\": 16,\r\n        \"DYS448\": 20,\r\n        \"DYS449\": 28,\r\n        \"DYS464a\": 12,\r\n        \"DYS464b\": 14,\r\n        \"DYS464c\": 15,\r\n        \"DYS464d\": 16,\r\n        \"DYS460\": 10,\r\n        \"Y-GATA-H4\": 10,\r\n        \"YCAIIa\": 20,\r\n        \"YCAIIb\": 21,\r\n        \"DYS456\": 14,\r\n        \"DYS607\": 14,\r\n        \"DYS576\": 18,\r\n        \"DYS570\": 17,\r\n        \"CDYa\": 34,\r\n        \"CDYb\": 38,\r\n        \"DYS442\": 12,\r\n        \"DYS438\": 10,\r\n        \"DYS531\": 11,\r\n        \"DYS578\": 8,\r\n        \"DYF395S1a\": 15,\r\n        \"DYF395S1b\": 15,\r\n        \"DYS590\": 8,\r\n        \"DYS537\": 11,\r\n        \"DYS641\": 10,\r\n        \"DYS472\": 8,\r\n        \"DYF406S1\": 9,\r\n        \"DYS511\": 9,\r\n        \"DYS425\": 12,\r\n        \"DYS413a\": 23,\r\n        \"DYS413b\": 25,\r\n        \"DYS557\": 15,\r\n        \"DYS594\": 10,\r\n        \"DYS436\": 12,\r\n        \"DYS490\": 12,\r\n        \"DYS534\": 15,\r\n        \"DYS450\": 8,\r\n        \"DYS444\": 14,\r\n        \"DYS481\": 28,\r\n        \"DYS520\": 20,\r\n        \"DYS446\": 13,\r\n        \"DYS617\": 13,\r\n        \"DYS568\": 11,\r\n        \"DYS487\": 12,\r\n        \"DYS572\": 11,\r\n        \"DYS640\": 11,\r\n        \"DYS492\": 12,\r\n        \"DYS565\": 11,\r\n        \"DYS710\": 30,\r\n        \"DYS485\": 12,\r\n        \"DYS632\": 8,\r\n        \"DYS495\": 17,\r\n        \"DYS540\": 12,\r\n        \"DYS714\": 24,\r\n        \"DYS716\": 27,\r\n        \"DYS717\": 19,\r\n        \"DYS505\": 11,\r\n        \"DYS556\": 12,\r\n        \"DYS549\": 12,\r\n        \"DYS589\": 13,\r\n        \"DYS522\": 11,\r\n        \"DYS494\": 9,\r\n        \"DYS533\": 11,\r\n        \"DYS636\": 11,\r\n        \"DYS575\": 10,\r\n        \"DYS638\": 12,\r\n        \"DYS462\": 12,\r\n        \"DYS452\": 31,\r\n        \"DYS445\": 11,\r\n        \"Y-GATA-A10\": 13,\r\n        \"DYS463\": 21,\r\n        \"DYS441\": 16,\r\n        \"Y-GGAAT-1B07\": 11,\r\n        \"DYS525\": 9,\r\n        \"DYS712\": 23,\r\n        \"DYS593\": 15,\r\n        \"DYS650\": 17,\r\n        \"DYS532\": 13,\r\n        \"DYS715\": 23,\r\n        \"DYS504\": 17,\r\n        \"DYS513\": 14,\r\n        \"DYS561\": 16,\r\n        \"DYS552\": 26,\r\n        \"DYS726\": 12,\r\n        \"DYS635\": 21,\r\n        \"DYS587\": 19,\r\n        \"DYS643\": 12,\r\n        \"DYS497\": 14,\r\n        \"DYS510\": 19,\r\n        \"DYS434\": 9,\r\n        \"DYS461\": 12,\r\n        \"DYS435\": 11\r\n    },\r\n    {\r\n        \"DYS393\": 13,\r\n        \"DYS390\": 23,\r\n        \"DYS19\": 14,\r\n        \"DYS391\": 10,\r\n        \"DYS385a\": 14,\r\n        \"DYS385b\": 14,\r\n        \"DYS426\": 11,\r\n        \"DYS388\": 14,\r\n        \"DYS439\": 11,\r\n        \"DYS389I\": 12,\r\n        \"DYS392\": 11,\r\n        \"DYS389II\": 28,\r\n        \"DYS458\": 15,\r\n        \"DYS459a\": 7,\r\n        \"DYS459b\": 9,\r\n        \"DYS455\": 8,\r\n        \"DYS454\": 11,\r\n        \"DYS447\": 23,\r\n        \"DYS437\": 16,\r\n        \"DYS448\": 20,\r\n        \"DYS449\": 28,\r\n        \"DYS464a\": 12,\r\n        \"DYS464b\": 14,\r\n        \"DYS464c\": 15,\r\n        \"DYS464d\": 16,\r\n        \"DYS460\": 10,\r\n        \"Y-GATA-H4\": 10,\r\n        \"YCAIIa\": 20,\r\n        \"YCAIIb\": 21,\r\n        \"DYS456\": 14,\r\n        \"DYS607\": 14,\r\n        \"DYS576\": 18,\r\n        \"DYS570\": 17,\r\n        \"CDYa\": 34,\r\n        \"CDYb\": 38,\r\n        \"DYS442\": 12,\r\n        \"DYS438\": 10,\r\n        \"DYS531\": 11,\r\n        \"DYS578\": 8,\r\n        \"DYF395S1a\": 15,\r\n        \"DYF395S1b\": 15,\r\n        \"DYS590\": 8,\r\n        \"DYS537\": 11,\r\n        \"DYS641\": 10,\r\n        \"DYS472\": 8,\r\n        \"DYF406S1\": 9,\r\n        \"DYS511\": 9,\r\n        \"DYS425\": 12,\r\n        \"DYS413a\": 23,\r\n        \"DYS413b\": 25,\r\n        \"DYS557\": 15,\r\n        \"DYS594\": 10,\r\n        \"DYS436\": 12,\r\n        \"DYS490\": 12,\r\n        \"DYS534\": 15,\r\n        \"DYS450\": 8,\r\n        \"DYS444\": 14,\r\n        \"DYS481\": 28,\r\n        \"DYS520\": 20,\r\n        \"DYS446\": 13,\r\n        \"DYS617\": 13,\r\n        \"DYS568\": 11,\r\n        \"DYS487\": 12,\r\n        \"DYS572\": 11,\r\n        \"DYS640\": 11,\r\n        \"DYS492\": 12,\r\n        \"DYS565\": 11,\r\n        \"DYS710\": 30,\r\n        \"DYS485\": 12,\r\n        \"DYS632\": 8,\r\n        \"DYS495\": 17,\r\n        \"DYS540\": 12,\r\n        \"DYS714\": 24,\r\n        \"DYS716\": 27,\r\n        \"DYS717\": 19,\r\n        \"DYS505\": 11,\r\n        \"DYS556\": 12,\r\n        \"DYS549\": 12,\r\n        \"DYS589\": 13,\r\n        \"DYS522\": 11,\r\n        \"DYS494\": 9,\r\n        \"DYS533\": 11,\r\n        \"DYS636\": 11,\r\n        \"DYS575\": 10,\r\n        \"DYS638\": 12,\r\n        \"DYS462\": 12,\r\n        \"DYS452\": 31,\r\n        \"DYS445\": 11,\r\n        \"Y-GATA-A10\": 13,\r\n        \"DYS463\": 21,\r\n        \"DYS441\": 16,\r\n        \"Y-GGAAT-1B07\": 11,\r\n        \"DYS525\": 9,\r\n        \"DYS712\": 23,\r\n        \"DYS593\": 15,\r\n        \"DYS650\": 17,\r\n        \"DYS532\": 13,\r\n        \"DYS715\": 23,\r\n        \"DYS504\": 17,\r\n        \"DYS513\": 14,\r\n        \"DYS561\": 16,\r\n        \"DYS552\": 26,\r\n        \"DYS726\": 12,\r\n        \"DYS635\": 21,\r\n        \"DYS587\": 19,\r\n        \"DYS643\": 12,\r\n        \"DYS497\": 14,\r\n        \"DYS510\": 19,\r\n        \"DYS434\": 9,\r\n        \"DYS461\": 12,\r\n        \"DYS435\": 11\r\n    }\r\n]",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/predict_json",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "predict_json"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "CSV Endpoint",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "file",
-              "type": "file",
-              "src": []
-            }
-          ]
-        },
-        "url": {
-          "raw": "http://localhost:8080/predict_csv?sep=,",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "predict_csv"
-          ],
-          "query": [
-            {
-              "key": "sep",
-              "value": ","
-            }
-          ]
-        }
-      },
-      "response": []
-    },
     {
       "name": "YFull Endpoint",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "file",
-              "type": "file",
-              "src": []
-            }
-          ]
+          "mode": "raw",
+          "raw": "13.c\t25\t16\t10\t12\t13\t12\tx\t10\t12\t11\t28\t15\t9\t10\t11\t11\t24\t14\t20\t33\t13\t15\t16\t16\t11\t10\t19\t23\t15\t16\t18\t20\tx\tx\t13\t11\t11\t8\t17\t17\t8\t12\t10\t8\t9\t10\t12\t20\t22\t15\t10\t12\t12\t14\t8\t13\t23\t21\t12\t12\t11\t13\t11\t11\t12\t13\t32\t15\t9\t15\tx\t25\tx\t19\tx\t12\t12\tx\t10\tx\t12\t11\t10\tx\t11\t31\t12\t13\t24\t13\t10\t10\t18\t15\t19\t11\t22\t14\t14\t15\t24\t12\t23\t19\t10\t15\t17\t9\t11\t11\r\n"
         },
         "url": {
-          "raw": "http://localhost:8080/predict_yfull?sep=;",
+          "raw": "http://localhost:8080/predict_yfull",
           "protocol": "http",
           "host": [
             "localhost"
@@ -92,47 +23,6 @@
           "port": "8080",
           "path": [
             "predict_yfull"
-          ],
-          "query": [
-            {
-              "key": "sep",
-              "value": ";"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "FTDNA Endpoint",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "file",
-              "type": "file",
-              "src": []
-            }
-          ]
-        },
-        "url": {
-          "raw": "http://localhost:8080/predict_ftdna?sep=,",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "predict_ftdna"
-          ],
-          "query": [
-            {
-              "key": "sep",
-              "value": ","
-            }
           ]
         }
       },

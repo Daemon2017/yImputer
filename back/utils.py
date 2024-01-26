@@ -1,4 +1,5 @@
 import datetime
+from io import StringIO
 
 import numpy as np
 import pandas as pd
@@ -43,27 +44,6 @@ full_ftdna_strs_order = [
     'Y-GATA-A10', 'DYS463', 'DYS441', 'Y-GGAAT-1B07', 'DYS525', 'DYS712', 'DYS593', 'DYS650', 'DYS532', 'DYS715',
     'DYS504', 'DYS513', 'DYS561', 'DYS552', 'DYS726', 'DYS635', 'DYS587', 'DYS643', 'DYS497', 'DYS510', 'DYS434',
     'DYS461', 'DYS435']
-full_yfull_strs_order = [
-    'DYS393', 'DYS390', 'DYS19', 'DYS391', 'DYS385.1', 'DYS385.2', 'DYS426', 'DYS388', 'DYS439', 'DYS389I', 'DYS392',
-    'DYS389II', 'DYS458', 'DYS459.1', 'DYS459.2', 'DYS455', 'DYS454', 'DYS447', 'DYS437', 'DYS448', 'DYS449',
-    'DYS464.1',
-    'DYS464.2', 'DYS464.3', 'DYS464.4', 'DYS460', 'Y-GATA-H4', 'YCAII.1', 'YCAII.2', 'DYS456', 'DYS607', 'DYS576',
-    'DYS570',
-    'CDY.1', 'CDY.2', 'DYS442', 'DYS438', 'DYS531', 'DYS578', 'DYF395.1', 'DYF395.2', 'DYS590', 'DYS537', 'DYS641',
-    'DYS472', 'DYF406', 'DYS511', 'DYS425', 'DYS413.1', 'DYS413.2', 'DYS557', 'DYS594', 'DYS436', 'DYS490', 'DYS534',
-    'DYS450', 'DYS444', 'DYS481', 'DYS520', 'DYS446', 'DYS617', 'DYS568', 'DYS487', 'DYS572', 'DYS640', 'DYS492',
-    'DYS565', 'DYS710', 'DYS485', 'DYS632', 'DYS495', 'DYS540', 'DYS714', 'DYS716', 'DYS717', 'DYS505', 'DYS556',
-    'DYS549', 'DYS589', 'DYS522', 'DYS494', 'DYS533', 'DYS636', 'DYS575', 'DYS638', 'DYS462', 'DYS452', 'DYS445',
-    'Y-GATA-A10', 'DYS463', 'DYS441', 'Y-GGAAT-1B07', 'DYS525', 'DYS712', 'DYS593', 'DYS650', 'DYS532', 'DYS715',
-    'DYS504', 'DYS513', 'DYS561', 'DYS552', 'DYS726', 'DYS635', 'DYS587', 'DYS643', 'DYS497', 'DYS510', 'DYS434',
-    'DYS461', 'DYS435']
-
-yfull_to_ftdna_dict = {
-    'DYS385.1': 'DYS385a', 'DYS385.2': 'DYS385b', 'DYS459.1': 'DYS459a', 'DYS459.2': 'DYS459b',
-    'DYS464.1': 'DYS464a', 'DYS464.2': 'DYS464b', 'DYS464.3': 'DYS464c', 'DYS464.4': 'DYS464d', 'YCAII.1': 'YCAIIa',
-    'YCAII.2': 'YCAIIb', 'CDY.1': 'CDYa', 'CDY.2': 'CDYb', 'DYF395.1': 'DYF395S1a', 'DYF395.2': 'DYF395S1b',
-    'DYF406': 'DYF406S1', 'DYS413.1': 'DYS413a', 'DYS413.2': 'DYS413b'
-}
 
 
 def get_prepared_train_df(df):
@@ -82,16 +62,23 @@ def get_prepared_train_df(df):
     return df
 
 
-def get_prepared_predict_df(df, split):
-    if split:
-        df = get_splited_palindromes_df(df)
-
-    df = df.replace(r'^\s*$', np.nan, regex=True)
-    df = df.astype(float, errors='ignore')
-    df = df.astype(int, errors='ignore')
-    df = df[train_strs_order]
-
-    return df
+def get_prepared_predict_df(rq):
+    data = rq.data
+    data_decoded = data.decode()
+    data_first_row = data_decoded.splitlines()[0]
+    data_comma_separated = data_first_row.replace('\t', ',')
+    data_empty = data_comma_separated.replace('x', 'null')
+    data_list = data_empty.split(',')
+    new_data_list = []
+    for v in data_list:
+        if '.' in v:
+            index = v.index('.')
+            new_data_list.append(v[:index])
+            continue
+        new_data_list.append(v)
+    data_joined = ','.join(new_data_list)
+    sparse_df = pd.read_csv(StringIO(data_joined), sep=',', header=None, names=full_ftdna_strs_order)
+    return sparse_df
 
 
 def get_splited_palindromes_df(df):
@@ -101,7 +88,6 @@ def get_splited_palindromes_df(df):
         b_df = pd.DataFrame(str_splitted.str[-1].rename(palindrome_column + 'b'))
         df = pd.concat([df, a_df, b_df], axis=1)
         del df[palindrome_column]
-
     for palindrome_column in ['DYS464']:
         str_splitted = df[palindrome_column].astype(str).str.split('-')
         a_df = pd.DataFrame(str_splitted.str[0].rename(palindrome_column + 'a'))
@@ -110,7 +96,6 @@ def get_splited_palindromes_df(df):
         d_df = pd.DataFrame(str_splitted.str[-1].rename(palindrome_column + 'd'))
         df = pd.concat([df, a_df, b_df, c_df, d_df], axis=1)
         del df[palindrome_column]
-
     return df
 
 
