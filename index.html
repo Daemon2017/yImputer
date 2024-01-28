@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" href="#"/>
+
+    <title>yImputer</title>
+
+    <script src="js/main.js"></script>
+
+    <style>
+        .column {
+            float: left;
+            width: 50%;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+<form style="width: 66%">
+    <div class="center">
+        <h2>yImputer</h2>
+    </div>
+    <div class="row">
+        <div class="column">
+            <a href="https://github.com/Daemon2017/yImputer">yImputer</a> это инструмент,
+            позволяющий импутировать пропущенные значения STR из проектов YFull и получить 111 STR в формате FTDNA.
+        </div>
+        <div class="column">
+            <a href="https://github.com/Daemon2017/yImputer">yImputer</a> is a tool,
+            that allows to impute missing STR values from YFull projects and produce 111 STRs in FTDNA format.
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label for="sampleID">Образец: </label>
+        </div>
+        <div class="column">
+            <label for="sampleID">Sample: </label>
+        </div>
+    </div>
+    <div>
+        <textarea id="sampleID" rows="3" wrap="off" style="width: 100%"></textarea>
+    </div>
+    <div class="row">
+        <div class="column">
+            Предупреждение: подготовка ответа может занять до 30 секунд.
+        </div>
+        <div class="column">
+            Warning: it may take up to 30 seconds to prepare a response.
+        </div>
+    </div>
+    <div>
+        <input type="button" onClick="impute()" value="Impute" style="width: 100%"/>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label for="resultID">Результат: </label>
+        </div>
+        <div class="column">
+            <label for="resultID">Result: </label>
+        </div>
+    </div>
+    <div>
+        <textarea id="resultID" rows="3" wrap="off" style="width: 100%"></textarea>
+    </div>
+</form>
+</body>
+
+</html>
